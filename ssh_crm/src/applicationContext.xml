@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!-- dao -->
-    <bean class="dao.impl.UserDaoImpl" name="userDao">
+    <!--  action配置  -->
+    <bean name="userAction" class="web.action.UserAction" scope="prototype">
+        <property name="userService" ref="userService"/>
+    </bean>
+    <bean name="customerAction" class="web.action.CustomerAction" scope="prototype">
+        <property name="customerService" ref="customerService"/>
+    </bean>
+    <!--  service配置  -->
+    <bean name="userService" class="service.impl.UserServiceImpl">
+        <property name="ud" ref="userDao"/>
+    </bean>
+    <bean name="customerService" class="service.impl.CustomerServiceImpl">
+        <property name="cd" ref="customerDao"/>
+    </bean>
+    <!--  dao配置  -->
+    <bean name="userDao" class="dao.impl.UserDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean name="customerDao" class="dao.impl.CustomerDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- service -->
-    <bean class="service.impl.UserServiceImpl" name="userService">
-        <property name="ud" ref="userDao"></property>
-    </bean>
-
-    <!-- action -->
-    <bean class="web.action.UserAction" name="userAction">
-        <property name="us" ref="userService"></property>
-    </bean>
 
     <bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" name="sessionFactory">
         <property name="dataSource" ref="dataSource"></property>
@@ -38,5 +48,29 @@
         <property name="user" value="${myjdbc.user}"></property>
         <property name="password" value="${myjdbc.password}"></property>
     </bean>
+
+    <bean name="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!--  配置通知  -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="save*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="persist*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="update*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="modify*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="delete*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="remove*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="get*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="find*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--  配置将通知织入目标对象  -->
+    <aop:config>
+        <!--  配置切点  -->
+        <aop:pointcut id="txPc" expression="execution(* service.impl.*ServiceImpl.*(..))"/>
+        <!--  配置切面  -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPc"/>
+    </aop:config>
 
 </beans>

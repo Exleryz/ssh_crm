@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="domain.CstCustomerEntity" table="cst_customer" schema="yezhou">
+        <id name="cust_id">
+            <generator class="native"></generator>
+        </id>
+        <property name="cust_name"/>
+        <property name="cust_source"/>
+        <property name="cust_industry"/>
+        <property name="cust_level"/>
+        <property name="cust_linkman"/>
+        <property name="cust_phone"/>
+        <property name="cust_mobile"/>
+        <!--集合，一对多关系，在配置文件中配置-->
+        <!--name属性: 集合属性名
+            column属性: 外键属性名
+            class属性: 与我相关联的对象的完整类名-->
+        <!--级联操作属性: cascade
+            save-update 级联保存更新
+            delete 级联删除
+            all save-update + delete
+            级联操作 简化操作-->
+        <!--inverse属性: 配置关系是否维护
+            true 不维护关系
+            false 维护关系
+
+            原则: 无论怎么放弃，总有一方必须要维护关系
+            一的一方可以放弃维护外键
+            多的一方: 不能放弃维护关系，外键字段就在多的一方-->
+        <set name="linkMens" inverse="true">
+            <key column="lkm_cust_id"></key>
+            <one-to-many class="domain.LinkMan"></one-to-many>
+        </set>
+
+    </class>
+</hibernate-mapping>

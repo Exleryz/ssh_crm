@@ -1,8 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE struts PUBLIC
-    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
-    "http://struts.apache.org/dtds/struts-2.0.dtd">
-
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
+    <!--
+     struts.objectFactory = spring 将action的创建交给spring容器
+             struts.objectFactory.spring.autoWire = name spring自动装配Action依赖属性
+    -->
+    <constant name="struts.objectFactory" value="spring"/>
+    <package name="crm" namespace="/" extends="struts-default">
+        <global-results>
+            <result name="error">/login.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.RuntimeException" result="error"/>
+        </global-exception-mappings>
+        <!--
+         整合方案1: class属性上仍然配置action的完整类名
+                        struts2仍然创建action，由spring负责组装action中的依赖属性
+        -->
+        <!--
+         整合方案2: class属性上填写spring中action对象的BeanName
+                        完全由spring管理action生命周期，包括Action的创建
+                            需要手动组装依赖属性
+        -->
+        <action name="UserAction_*" class="userAction" method="{1}">
+            <result name="toHome" type="redirect">/jsp/success.jsp</result>
+            <result name="error">/login.jsp</result>
+            <allowed-methods>login</allowed-methods>
+        </action>
+
+        <action name="CustomerAction_*" class="web.action.CustomerAction" method="{1}">
+            <result name="list" type="dispatcher">/jsp/customer/list.jsp</result>
+            <result name="error">/login.jsp</result>
+            <allowed-methods>list</allowed-methods>
+        </action>
+    </package>
 </struts>
