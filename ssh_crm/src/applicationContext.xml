@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- dao -->
+    <bean class="dao.impl.UserDaoImpl" name="userDao">
+    </bean>
+
+    <!-- service -->
+    <bean class="service.impl.UserServiceImpl" name="userService">
+        <property name="ud" ref="userDao"></property>
+    </bean>
+
+    <!-- action -->
+    <bean class="web.action.UserAction" name="userAction">
+        <property name="us" ref="userService"></property>
+    </bean>
+
+    <bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" name="sessionFactory">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+        <property name="mappingDirectoryLocations" value="classpath:domain"/>
+    </bean>
+    <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
+
+    <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" name="dataSource">
+        <property name="driverClass" value="${myjdbc.driverClass}"></property>
+        <property name="jdbcUrl" value="${myjdbc.jdbcUrl}"></property>
+        <property name="user" value="${myjdbc.user}"></property>
+        <property name="password" value="${myjdbc.password}"></property>
+    </bean>
+
+</beans>
