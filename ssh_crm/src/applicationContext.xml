@@ -12,6 +12,10 @@
     <bean name="customerAction" class="web.action.CustomerAction" scope="prototype">
         <property name="customerService" ref="customerService"/>
     </bean>
+    <bean class="web.action.BaseDictAction" name="baseDictAction" scope="prototype">
+        <property name="baseDictService" ref="baseDictService"></property>
+    </bean>
+    
     <!--  service配置  -->
     <bean name="userService" class="service.impl.UserServiceImpl">
         <property name="ud" ref="userDao"/>
@@ -19,12 +23,19 @@
     <bean name="customerService" class="service.impl.CustomerServiceImpl">
         <property name="cd" ref="customerDao"/>
     </bean>
+    <bean class="service.impl.BaseDictServiceImpl" name="baseDictService">
+        <property name="bdd" ref="baseDictDao"></property>
+    </bean>
+    
     <!--  dao配置  -->
     <bean name="userDao" class="dao.impl.UserDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <bean name="customerDao" class="dao.impl.CustomerDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean class="dao.impl.BaseDictDaoImpl" name="baseDictDao">
+        <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
 
 
