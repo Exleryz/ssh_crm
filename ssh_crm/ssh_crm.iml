@@ -23,7 +23,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="noname-applicationContext.xml@1656" value="dataSource" />
+          <unit-entry name="noname-applicationContext.xml@1692" value="dataSource" />
         </datasource-map>
         <naming-strategy-map />
       </configuration>

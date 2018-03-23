@@ -9,9 +9,9 @@
             <generator class="native"></generator>
         </id>
         <property name="cust_name"/>
-        <property name="cust_source"/>
-        <property name="cust_industry"/>
-        <property name="cust_level"/>
+        <!--<property name="cust_source"/>-->
+        <!--<property name="cust_industry"/>-->
+        <!--<property name="cust_level"/>-->
         <property name="cust_linkman"/>
         <property name="cust_phone"/>
         <property name="cust_mobile"/>
@@ -35,6 +35,10 @@
             <key column="lkm_cust_id"></key>
             <one-to-many class="domain.LinkMan"></one-to-many>
         </set>
+
+        <many-to-one name="cust_source" class="domain.BaseDict" column="cust_source"/>
+        <many-to-one name="cust_industry" class="domain.BaseDict" column="cust_industry"/>
+        <many-to-one name="cust_level" class="domain.BaseDict" column="cust_level"/>
 
     </class>
 </hibernate-mapping>
