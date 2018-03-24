@@ -10,10 +10,18 @@ import org.hibernate.criterion.Restrictions;
 import service.CustomerService;
 import utils.PageBean;
 
+import java.io.File;
+
 public class CustomerAction extends ActionSupport implements ModelDriven<CstCustomerEntity>{
 
     private  CstCustomerEntity customer = new CstCustomerEntity();
     private CustomerService customerService;
+
+    private File photo;    // 上传的文件会自动封装到File对象中
+    // 在后台提供一个与前台input type file组件 name相同的属性
+
+    private String photoFileName;    // 在提交的键名后加上固定后缀FileName，文件名会自动封装到属性中
+    private String photoContentType;    // 文件的MIME类型值
 
     private Integer currentPage;
 
@@ -32,6 +40,17 @@ public class CustomerAction extends ActionSupport implements ModelDriven<CstCust
         // 2. 将PageBean放入request域，转发到列表页面
         ActionContext.getContext().put("pageBean", pb);
         return "list";
+    }
+
+    public String add() throws Exception {
+
+        photo.renameTo(new File("E:/upload/haha.jpg"));
+
+        // 调用service，保存Customer对象
+        customerService.save(customer);
+        // 重定向到客户列表
+
+        return "toList";
     }
 
     public void setCustomerService(CustomerService cs) {
@@ -54,6 +73,29 @@ public class CustomerAction extends ActionSupport implements ModelDriven<CstCust
         this.pageSize = pageSize;
     }
 
+    public File getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(File photo) {
+        this.photo = photo;
+    }
+
+    public String getPhotoFileName() {
+        return photoFileName;
+    }
+
+    public void setPhotoFileName(String photoFileName) {
+        this.photoFileName = photoFileName;
+    }
+
+    public String getPhotoContentType() {
+        return photoContentType;
+    }
+
+    public void setPhotoContentType(String photoContentType) {
+        this.photoContentType = photoContentType;
+    }
     @Override
     public CstCustomerEntity getModel() {
         return customer;

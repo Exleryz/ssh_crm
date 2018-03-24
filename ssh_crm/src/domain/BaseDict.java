@@ -74,4 +74,9 @@ public class BaseDict {
     public void setDict_enable(Character dict_enable) {
         this.dict_enable = dict_enable;
     }
+
+    @Override
+    public String toString() {
+        return dict_item_name;
+    }
 }

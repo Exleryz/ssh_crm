@@ -120,7 +120,8 @@
                             <s:iterator value="#pageBean.list" var="cust">
                                 <TR style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
                                     <TD><s:property value="#cust.cust_name"></s:property></TD>
-                                    <TD><s:property value="#cust.cust_level"></s:property></TD>
+                                    <TD><s:property value="#cust.cust_level.dict_item_name"></s:property></TD>
+                                    <!-- 保存方式二 BaseDict tostring方法 -->
                                     <TD><s:property value="#cust.cust_source"></s:property></TD>
                                     <TD><s:property value="#cust.cust_linkman"></s:property></TD>
                                     <TD><s:property value="#cust.cust_phone"></s:property></TD>

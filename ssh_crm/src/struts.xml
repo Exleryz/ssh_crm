@@ -33,8 +33,12 @@
 
         <action name="CustomerAction_*" class="web.action.CustomerAction" method="{1}">
             <result name="list" type="dispatcher">/jsp/customer/list.jsp</result>
+            <result name="toList" type="redirectAction">
+                <param name="actionName">CustomerAction_list</param>
+                <param name="namespace">/</param>
+            </result>
             <result name="error">/login.jsp</result>
-            <allowed-methods>list</allowed-methods>
+            <allowed-methods>list,add</allowed-methods>
         </action>
 
         <!-- 数据字典action -->

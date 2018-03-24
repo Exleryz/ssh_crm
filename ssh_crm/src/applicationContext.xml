@@ -15,7 +15,7 @@
     <bean class="web.action.BaseDictAction" name="baseDictAction" scope="prototype">
         <property name="baseDictService" ref="baseDictService"></property>
     </bean>
-    
+
     <!--  service配置  -->
     <bean name="userService" class="service.impl.UserServiceImpl">
         <property name="ud" ref="userDao"/>
@@ -26,7 +26,7 @@
     <bean class="service.impl.BaseDictServiceImpl" name="baseDictService">
         <property name="bdd" ref="baseDictDao"></property>
     </bean>
-    
+
     <!--  dao配置  -->
     <bean name="userDao" class="dao.impl.UserDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
@@ -74,6 +74,7 @@
             <tx:method name="remove*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
             <tx:method name="get*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="true"/>
             <tx:method name="find*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
         </tx:attributes>
     </tx:advice>
     <!--  配置将通知织入目标对象  -->
@@ -83,5 +84,6 @@
         <!--  配置切面  -->
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPc"/>
     </aop:config>
-
+    <!-- 开启注解事务 -->
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
 </beans>
