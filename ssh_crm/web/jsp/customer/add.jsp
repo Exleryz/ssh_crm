@@ -18,8 +18,7 @@
         $(document).ready(function () {
             loadSelcet("006", "level", "cust_level.dict_id"<s:if test="#customer.cust_level!=null">, <s:property value="#customer.cust_level.dict_id"></s:property></s:if>);
             loadSelcet("001", "industry", "cust_industry.dict_id"<s:if test="#customer.cust_industry!=null">, <s:property value="#customer.cust_industry.dict_id"></s:property></s:if>);
-            loadSelcet("009", "source", "cust_source.dict_id"<s:if test="#customer.cust_source!=null">, <s:property value="#customer.cust_source.dict_id"></s:property></s:if>
-            );
+            loadSelcet("009", "source", "cust_source.dict_id"<s:if test="#customer.cust_source!=null">, <s:property value="#customer.cust_source.dict_id"></s:property></s:if>);
         })
     </script>
     <META content="MSHTML 6.00.2900.3492" name=GENERATOR>

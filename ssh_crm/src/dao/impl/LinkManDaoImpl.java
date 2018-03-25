@@ -1,4 +1,7 @@
 package dao.impl;
 
-public class LinkManDaoImpl {
+import dao.LinkManDao;
+import domain.LinkMan;
+
+public class LinkManDaoImpl extends BaseDaoImpl<LinkMan> implements LinkManDao {
 }

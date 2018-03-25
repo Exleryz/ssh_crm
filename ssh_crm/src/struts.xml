@@ -31,7 +31,7 @@
             <allowed-methods>login</allowed-methods>
         </action>
 
-        <action name="CustomerAction_*" class="web.action.CustomerAction" method="{1}">
+        <action name="CustomerAction_*" class="customerAction" method="{1}">
             <result name="list" type="dispatcher">/jsp/customer/list.jsp</result>
             <result name="toList" type="redirectAction">
                 <param name="actionName">CustomerAction_list</param>
@@ -40,6 +40,14 @@
             <result name="edit">/jsp/customer/add.jsp</result>
             <result name="error">/login.jsp</result>
             <allowed-methods>list,add,toEdit</allowed-methods>
+        </action>
+
+        <action name="LinkManAction_*" class="linkManAction" method="{1}">
+            <result name="toList" type="redirectAction">
+                <param name="actionName">LinkManAction_list</param>
+                <param name="namespace">/</param>
+            </result>
+            <allowed-methods>add</allowed-methods>
         </action>
 
         <!-- 数据字典action -->
