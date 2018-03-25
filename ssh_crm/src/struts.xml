@@ -37,8 +37,9 @@
                 <param name="actionName">CustomerAction_list</param>
                 <param name="namespace">/</param>
             </result>
+            <result name="edit">/jsp/customer/add.jsp</result>
             <result name="error">/login.jsp</result>
-            <allowed-methods>list,add</allowed-methods>
+            <allowed-methods>list,add,toEdit</allowed-methods>
         </action>
 
         <!-- 数据字典action -->

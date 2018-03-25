@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface BaseDao<T> {
+    // 增或修改
+    void saveOrUpdate(T t);
 
     // 增
     void save(T t);

@@ -12,9 +12,9 @@ import utils.PageBean;
 
 import java.io.File;
 
-public class CustomerAction extends ActionSupport implements ModelDriven<CstCustomerEntity>{
+public class CustomerAction extends ActionSupport implements ModelDriven<CstCustomerEntity> {
 
-    private  CstCustomerEntity customer = new CstCustomerEntity();
+    private CstCustomerEntity customer = new CstCustomerEntity();
     private CustomerService customerService;
 
     private File photo;    // 上传的文件会自动封装到File对象中
@@ -44,13 +44,23 @@ public class CustomerAction extends ActionSupport implements ModelDriven<CstCust
 
     public String add() throws Exception {
 
-        photo.renameTo(new File("E:/upload/haha.jpg"));
+        if (photo != null) {
+            photo.renameTo(new File("E:/upload/haha.jpg"));
+        }
 
         // 调用service，保存Customer对象
         customerService.save(customer);
         // 重定向到客户列表
 
         return "toList";
+    }
+
+    public String toEdit() throws Exception {
+        // 1. 调用service根据id获得客户对象
+        CstCustomerEntity c = customerService.getById(customer.getCust_id());
+        // 2. 将客户对象放置到request域 并转发到编辑页面
+        ActionContext.getContext().put("customer", c);
+        return "edit";
     }
 
     public void setCustomerService(CustomerService cs) {
@@ -96,6 +106,7 @@ public class CustomerAction extends ActionSupport implements ModelDriven<CstCust
     public void setPhotoContentType(String photoContentType) {
         this.photoContentType = photoContentType;
     }
+
     @Override
     public CstCustomerEntity getModel() {
         return customer;

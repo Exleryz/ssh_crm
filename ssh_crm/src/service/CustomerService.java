@@ -10,4 +10,6 @@ public interface CustomerService {
 
     // 保存客户
     void save(CstCustomerEntity customer);
+
+    CstCustomerEntity getById(Long cust_id);
 }
