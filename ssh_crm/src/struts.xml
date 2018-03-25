@@ -47,7 +47,8 @@
                 <param name="actionName">LinkManAction_list</param>
                 <param name="namespace">/</param>
             </result>
-            <allowed-methods>add</allowed-methods>
+            <result name="list" type="dispatcher">/jsp/linkman/list.jsp</result>
+            <allowed-methods>add,list</allowed-methods>
         </action>
 
         <!-- 数据字典action -->
