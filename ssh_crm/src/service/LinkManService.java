@@ -10,4 +10,7 @@ public interface LinkManService {
     PageBean getPageBean(DetachedCriteria dc, Integer currentPage, Integer pageSize);
 
     void save(LinkMan linkMan);
+
+    // 根据id获得LinkMan对象
+    LinkMan getById(Long lkm_id);
 }

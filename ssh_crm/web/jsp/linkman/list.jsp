@@ -118,7 +118,7 @@
                                 <TD><s:property value="#linkman.lkm_mobile"></s:property></TD>
 
                                 <TD>
-                                    <a href="${pageContext.request.contextPath }/linkmanServlet?method=edit&lkmId=${linkman.lkm_id}">修改</a>
+                                    <a href="${pageContext.request.contextPath }/LinkManAction_toEdit?lkm_id=<s:property value="#linkman.lkm_id"></s:property>">修改</a>
                                     &nbsp;&nbsp;
                                     <a href="${pageContext.request.contextPath }/linkmanServlet?method=delete&lkmId=${linkman.lkm_id}">删除</a>
                                 </TD>

@@ -31,7 +31,7 @@ public class LinkManAction extends ActionSupport implements ModelDriven<LinkMan>
             // 判断并封装参数
             dc.add(Restrictions.like("lkm_name", "%" + linkMan.getLkm_name() + "%"));
         }
-        if (linkMan.getCustomer() != null) {
+        if (linkMan.getCustomer() != null && linkMan.getCustomer().getCust_id() != null) {
             dc.add(Restrictions.eq("customer.cust_id", linkMan.getCustomer().getCust_id()));
         }
         // 1. 调用service查询分页数据(PageBean)
@@ -46,6 +46,12 @@ public class LinkManAction extends ActionSupport implements ModelDriven<LinkMan>
         linkManService.save(linkMan);
         // 2. 重定向到联系人列表
         return "toList";
+    }
+
+    public String toEdit() throws Exception {
+        LinkMan lm = linkManService.getById(linkMan.getLkm_id());
+        ActionContext.getContext().put("linkMan", lm);
+        return "add";
     }
 
     public LinkManService getLinkManService() {

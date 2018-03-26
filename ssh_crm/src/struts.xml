@@ -10,8 +10,24 @@
     -->
     <constant name="struts.objectFactory" value="spring"/>
     <package name="crm" namespace="/" extends="struts-default">
+        <!-- 注册拦截器 -->
+        <interceptors>
+            <interceptor name="privilegeInterceptor" class="web.interceptor.PrivilegeInterceptor"></interceptor>
+        <!-- 配置拦截器栈 -->
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="privilegeInterceptor">
+                    <param name="excludeMethods">login,regist</param>
+                </interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <!-- 指定默认拦截器栈 -->
+        <default-interceptor-ref name="myStack"></default-interceptor-ref>
+
+        <!-- 全局结果集配置 -->
         <global-results>
             <result name="error">/login.jsp</result>
+            <result name="toLogin">/login.jsp</result>
         </global-results>
         <global-exception-mappings>
             <exception-mapping exception="java.lang.RuntimeException" result="error"/>
@@ -27,8 +43,10 @@
         -->
         <action name="UserAction_*" class="userAction" method="{1}">
             <result name="toHome" type="redirect">/jsp/success.jsp</result>
-            <result name="error">/login.jsp</result>
-            <allowed-methods>login</allowed-methods>
+            <result name="error">/regist.jsp</result>
+            <result name="regist">/regist.jsp</result>
+            <result name="toLogin" type="redirect">/login.jsp</result>
+            <allowed-methods>login,regist</allowed-methods>
         </action>
 
         <action name="CustomerAction_*" class="customerAction" method="{1}">
@@ -48,7 +66,8 @@
                 <param name="namespace">/</param>
             </result>
             <result name="list" type="dispatcher">/jsp/linkman/list.jsp</result>
-            <allowed-methods>add,list</allowed-methods>
+            <result name="add" type="dispatcher">/jsp/linkman/add.jsp</result>
+            <allowed-methods>add,list,toEdit</allowed-methods>
         </action>
 
         <!-- 数据字典action -->
