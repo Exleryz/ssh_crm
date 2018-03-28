@@ -3,7 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--  action配置  -->
     <bean name="userAction" class="web.action.UserAction" scope="prototype">
@@ -17,6 +24,9 @@
     </bean>
     <bean class="web.action.LinkManAction" name="linkManAction" scope="prototype">
         <property name="linkManService" ref="linkManService"></property>
+    </bean>
+    <bean class="web.action.SaleVisitAction" name="saleVisitAction" scope="prototype">
+        <property name="svs" ref="saleVisitService"></property>
     </bean>
 
     <!--  service配置  -->
@@ -32,6 +42,9 @@
     <bean class="service.impl.LinkManServiceImpl" name="linkManService">
         <property name="lmd" ref="linkManDao"></property>
     </bean>
+    <bean class="service.impl.SaleVisitServiceImpl" name="saleVisitService">
+        <property name="svd" ref="saleVisitDao"></property>
+    </bean>
 
     <!--  dao配置  -->
     <bean name="userDao" class="dao.impl.UserDaoImpl">
@@ -44,6 +57,9 @@
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
     <bean class="dao.impl.LinkManDaoImpl" name="linkManDao">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean class="dao.impl.SaleVisitDaoImpl" name="saleVisitDao">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
 

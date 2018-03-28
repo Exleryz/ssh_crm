@@ -40,5 +40,9 @@
         <many-to-one name="cust_industry" class="domain.BaseDict" column="cust_industry"/>
         <many-to-one name="cust_level" class="domain.BaseDict" column="cust_level"/>
 
+        <set name="saleVisits">
+            <key column="visit_cust_id"></key>
+            <one-to-many class="domain.SaleVisit"></one-to-many>
+        </set>
     </class>
 </hibernate-mapping>

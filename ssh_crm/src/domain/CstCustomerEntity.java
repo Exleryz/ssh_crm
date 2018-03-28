@@ -7,7 +7,7 @@ public class CstCustomerEntity {
     private Long cust_id;
 
     private String cust_name;
-//    private String cust_source;
+    //    private String cust_source;
 //    private String cust_industry;
 //    private String cust_level;
     private String cust_linkman;
@@ -18,6 +18,17 @@ public class CstCustomerEntity {
     private BaseDict cust_source;
     private BaseDict cust_industry;
     private BaseDict cust_level;
+
+    // 表达客户与拜访记录的一对多
+    private Set<SaleVisit> saleVisits = new HashSet<SaleVisit>();
+
+    public Set<SaleVisit> getSaleVisits() {
+        return saleVisits;
+    }
+
+    public void setSaleVisits(Set<SaleVisit> saleVisits) {
+        this.saleVisits = saleVisits;
+    }
 
     public Long getCust_id() {
         return cust_id;
