@@ -20,12 +20,10 @@ public class CustomerDaoImpl extends BaseDaoImpl<CstCustomerEntity> implements C
         List<Object[]> list = getHibernateTemplate().execute(new HibernateCallback<List>() {
             @Override
             public List doInHibernate(Session session) throws HibernateException {
-                String sql = "SELECT" +
-                        "  bd.dict_item_name," +
-                        "  count(*) total" +
-                        "FROM cst_customer c, base_dict bd" +
-                        "WHERE c.cust_industry = bd.dict_id" +
-                        "GROUP BY cust_industry;";
+                String sql = "SELECT bd.dict_item_name, count(*) total" +
+                        " FROM cst_customer c, base_dict bd" +
+                        " WHERE c.cust_industry = bd.dict_id" +
+                        " GROUP BY cust_industry;";
                 SQLQuery sqlQuery = session.createSQLQuery(sql);
 
                 return sqlQuery.list();

@@ -57,7 +57,8 @@
             </result>
             <result name="edit">/jsp/customer/add.jsp</result>
             <result name="error">/login.jsp</result>
-            <allowed-methods>list,add,toEdit</allowed-methods>
+            <result name="industryCount">/jsp/customer/industryCount.jsp</result>
+            <allowed-methods>list,add,toEdit,industryCount</allowed-methods>
         </action>
 
         <action name="LinkManAction_*" class="linkManAction" method="{1}">

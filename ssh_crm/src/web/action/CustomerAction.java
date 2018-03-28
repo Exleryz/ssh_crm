@@ -11,6 +11,7 @@ import service.CustomerService;
 import utils.PageBean;
 
 import java.io.File;
+import java.util.List;
 
 public class CustomerAction extends ActionSupport implements ModelDriven<CstCustomerEntity> {
 
@@ -61,6 +62,12 @@ public class CustomerAction extends ActionSupport implements ModelDriven<CstCust
         // 2. 将客户对象放置到request域 并转发到编辑页面
         ActionContext.getContext().put("customer", c);
         return "edit";
+    }
+
+    public String industryCount() throws Exception {
+        List<Object[]> list = customerService.getIndustryCount();
+        ActionContext.getContext().put("list", list);
+        return "industryCount";
     }
 
     public void setCustomerService(CustomerService cs) {
